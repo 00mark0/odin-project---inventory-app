@@ -61,6 +61,7 @@ document
     const price = parseFloat(
       document.getElementById("item-price").value
     ).toFixed(2);
+    const adminPassword = prompt("Enter admin password:");
 
     if (isEditMode && currentItemId) {
       // Edit existing item
@@ -74,6 +75,7 @@ document
           description,
           quantity,
           price,
+          adminPassword,
         }),
       })
         .then((response) => response.json())
@@ -120,14 +122,19 @@ function showEditItemForm(item) {
 
 // Delete item
 function deleteItem(itemId) {
+  const adminPassword = prompt("Enter admin password to delete this item:");
   fetch(`/items/${itemId}`, {
     method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ adminPassword }),
   }).then((response) => {
     if (response.ok) {
       alert("Item deleted successfully!");
       window.location.reload();
     } else {
-      alert("Failed to delete item.");
+      alert("Failed to delete item. Please check the admin password.");
     }
   });
 }

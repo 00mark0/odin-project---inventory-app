@@ -3,7 +3,7 @@ import {
   getAllItems,
   createItem,
   updateItemById,
-  deleteItem,
+  deleteItemById,
 } from "../models/itemModel.js";
 
 export const getItems = async (req, res) => {
@@ -32,13 +32,24 @@ export const addItem = async (req, res) => {
 
 export const updateItem = async (req, res) => {
   const { id } = req.params;
-  const { name, description, quantity, price } = req.body;
+  const { name, description, quantity, price, adminPassword } = req.body;
+
+  if (adminPassword !== process.env.ADMIN_PASSWORD) {
+    return res.status(403).json({ error: "Forbidden" });
+  }
+
   const item = await updateItemById(id, name, description, quantity, price);
   res.json(item);
 };
 
 export const removeItem = async (req, res) => {
   const { id } = req.params;
-  await deleteItem(id);
+  const { adminPassword } = req.body;
+
+  if (adminPassword !== process.env.ADMIN_PASSWORD) {
+    return res.status(403).json({ error: "Forbidden" });
+  }
+
+  await deleteItemById(id);
   res.sendStatus(204);
 };

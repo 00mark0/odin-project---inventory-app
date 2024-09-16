@@ -45,6 +45,6 @@ export const updateItemById = async (
   return result.rows[0];
 };
 
-export const deleteItem = async (id) => {
+export const deleteItemById = async (id) => {
   await pool.query("DELETE FROM items WHERE id = $1", [id]);
 };
