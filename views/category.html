@@ -1,0 +1,44 @@
+<!-- views/category.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Category Items</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <button id="back-button" class="btn">Back</button>
+      <h1 id="category-name"></h1>
+      <ul id="items" class="list"></ul>
+
+      <button id="show-add-item-form" class="btn">Add New Item</button>
+
+      <div id="add-item-form-container" class="form-container">
+        <h2>Add New Item</h2>
+        <form id="add-item-form" class="form">
+          <label for="item-name">Name:</label>
+          <input type="text" id="item-name" name="name" required />
+          <label for="item-description">Description:</label>
+          <textarea id="item-description" name="description"></textarea>
+          <label for="item-quantity">Quantity:</label>
+          <input type="number" id="item-quantity" name="quantity" required />
+          <label for="item-price">Price:</label>
+          <input
+            type="number"
+            id="item-price"
+            name="price"
+            step="0.01"
+            required
+          />
+          <button type="submit" class="btn">Add Item</button>
+          <button type="button" id="close-add-item-form" class="btn">
+            Cancel
+          </button>
+        </form>
+      </div>
+    </div>
+    <script src="/scripts/item.js"></script>
+  </body>
+</html>
