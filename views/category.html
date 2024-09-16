@@ -11,7 +11,18 @@
     <div class="container">
       <button id="back-button" class="btn">Back</button>
       <h1 id="category-name"></h1>
-      <ul id="items" class="list"></ul>
+      <table id="items-table" class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="items"></tbody>
+      </table>
 
       <button id="show-add-item-form" class="btn">Add New Item</button>
 

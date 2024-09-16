@@ -12,16 +12,6 @@ fetch("/categories")
       link.textContent = `${category.name} - ${category.description}`;
       li.appendChild(link);
 
-      // Add edit button for each category
-      const editButton = document.createElement("button");
-      editButton.textContent = "Edit";
-      editButton.classList.add("btn");
-      editButton.addEventListener("click", (event) => {
-        event.stopPropagation();
-        showEditCategoryForm(category);
-      });
-      li.appendChild(editButton);
-
       // Add delete button for each category
       const deleteButton = document.createElement("button");
       deleteButton.textContent = "Delete";
@@ -42,6 +32,7 @@ document
   .addEventListener("click", () => {
     document.getElementById("add-category-form-container").style.display =
       "block";
+    document.getElementById("add-category-form").reset();
   });
 
 // Close add category form
@@ -52,7 +43,7 @@ document
       "none";
   });
 
-// Add new category
+// Add category
 document
   .getElementById("add-category-form")
   .addEventListener("submit", function (event) {
@@ -60,6 +51,7 @@ document
     const name = document.getElementById("name").value;
     const description = document.getElementById("description").value;
 
+    // Add new category
     fetch("/categories", {
       method: "POST",
       headers: {
@@ -73,35 +65,6 @@ document
         window.location.reload();
       });
   });
-
-// Show edit category form
-function showEditCategoryForm(category) {
-  const formContainer = document.getElementById("add-category-form-container");
-  formContainer.style.display = "block";
-  document.getElementById("name").value = category.name;
-  document.getElementById("description").value = category.description;
-
-  const form = document.getElementById("add-category-form");
-  form.removeEventListener("submit", addCategoryHandler);
-  form.addEventListener("submit", function editCategoryHandler(event) {
-    event.preventDefault();
-    const name = document.getElementById("name").value;
-    const description = document.getElementById("description").value;
-
-    fetch(`/categories/${category.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, description }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        alert("Category updated successfully!");
-        window.location.reload();
-      });
-  });
-}
 
 // Delete category
 function deleteCategory(categoryId) {
